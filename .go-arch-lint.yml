@@ -1,0 +1,40 @@
+version: 3
+workdir: .
+
+excludeFiles:
+  - "^.*_test\\.go$"
+  - "^.*\/test\/.*$"
+  - "vendor/.*"
+  - "cmd/.*"
+
+allow:
+  depOnAnyVendor: true
+
+components:
+  # common levels
+  proto: { # proto definitions
+    in: pkg/pb/**
+  }
+  app: {
+    in: internal/app/*
+  }
+  service: {
+    in: internal/service/**
+  }
+  repository: {
+    in: internal/domain/*/repository
+  }
+  model: {
+    in: internal/models
+  }
+
+commonComponents:
+  - model
+deps:
+  app:
+    mayDependOn:
+      - proto
+      - service
+  service:
+    mayDependOn:
+      - repository
