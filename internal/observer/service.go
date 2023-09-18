@@ -2,8 +2,6 @@ package observer
 
 import (
 	"context"
-	"fmt"
-	"strings"
 	"sync"
 	"time"
 
@@ -60,7 +58,7 @@ func NewObserver(ethService ethService, ethProvider ethProvider) *Observer {
 func (o *Observer) Serve(ctx context.Context, count int) (func() error, func(error)) {
 	observerCtx, observerCancel := context.WithCancel(ctx)
 
-	o.setCurrentBlockByAddress(strings.ToLower("0x0B50800f891C1966C4263e90E8081ee0e6cE55cF"), 18156440)
+	//o.setCurrentBlockByAddress(strings.ToLower("0x0B50800f891C1966C4263e90E8081ee0e6cE55cF"), 18156440)
 
 	execute := func() error {
 		o.startWorkers(observerCtx, count)
@@ -114,7 +112,6 @@ func (o *Observer) Serve(ctx context.Context, count int) (func() error, func(err
 						blockTo++
 					}
 					o.setCurrentBlockByAddress(sub, blockTo)
-					fmt.Println(j)
 					o.subscriberJobs <- j
 				}
 			}
@@ -149,6 +146,8 @@ func (o *Observer) startWorkers(ctx context.Context, count int) {
 					transactions, err := o.ethProvider.GetLogs(ctx, job.blockFrom, job.blockTo, job.address)
 					if err != nil {
 						logger.ErrorKV(ctx, "could not fetch ethProvider.GetLogs", "err", err)
+						o.runningJobCountByAddressDec(job.address)
+						// we can actually place this job again into queue, so we will retry it sooner or later
 						continue
 					}
 					o.ethService.AddTransactions(job.address, transactions)
