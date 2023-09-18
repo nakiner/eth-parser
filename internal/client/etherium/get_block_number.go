@@ -43,15 +43,15 @@ func (c *Client) GetBlockNumber(ctx context.Context) (int64, error) {
 	}
 
 	resp, err := c.cl.Do(httpReq)
+	if err != nil {
+		return 0, errors.Wrap(err, "GetBlockNumber could not Do http req")
+	}
 	defer func() {
 		errD := resp.Body.Close()
 		if errD != nil {
 			logger.WarnKV(ctx, "GetBlockNumber could not close http body", "err", errD)
 		}
 	}()
-	if err != nil {
-		return 0, errors.Wrap(err, "GetBlockNumber could not Do http req")
-	}
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
