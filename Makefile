@@ -73,3 +73,8 @@ modcache-clean:
 arch-lint:
 	GOBIN=$(LOCAL_BIN) go install github.com/fe3dback/go-arch-lint@latest
 	GOBIN=$(LOCAL_BIN) go-arch-lint check
+
+.PHONY: arch-graph
+arch-graph:
+	GOBIN=$(LOCAL_BIN) go install github.com/fe3dback/go-arch-lint@latest
+	GOBIN=$(LOCAL_BIN) go-arch-lint graph

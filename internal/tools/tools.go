@@ -5,7 +5,6 @@ package tools
 
 // list packages here to prevent them from removal out of go.mod
 import (
-	_ "github.com/go-bindata/go-bindata"
 	_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
 
 	// proto dependencies

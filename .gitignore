@@ -6,3 +6,4 @@ vendor
 bin
 env/local.yaml
 /bin
+go-arch-lint-graph.svg

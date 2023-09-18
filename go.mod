@@ -5,7 +5,6 @@ go 1.21.0
 require (
 	github.com/bufbuild/buf v1.26.1
 	github.com/fe3dback/go-arch-lint v1.11.0
-	github.com/go-bindata/go-bindata v3.1.2+incompatible
 	github.com/go-chi/chi/v5 v5.0.10
 	github.com/golang/protobuf v1.5.3
 	github.com/golangci/golangci-lint v1.54.2

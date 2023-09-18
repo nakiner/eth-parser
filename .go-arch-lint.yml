@@ -12,6 +12,9 @@ allow:
 
 components:
   # common levels
+  cmd: {
+    in: cmd/service
+  }
   proto: { # proto definitions
     in: pkg/pb/**
   }
@@ -24,13 +27,35 @@ components:
   repository: {
     in: internal/domain/*/repository
   }
+  provider: {
+    in: internal/provider/**
+  }
+  client: {
+    in: internal/client/**
+  }
+  observer: {
+    in: internal/observer
+  }
   model: {
     in: internal/models
+  }
+  logger: {
+    in: internal/logger
   }
 
 commonComponents:
   - model
+  - logger
 deps:
+  cmd:
+    mayDependOn:
+      - proto
+      - app
+      - service
+      - repository
+      - provider
+      - observer
+      - client
   app:
     mayDependOn:
       - proto
@@ -38,3 +63,12 @@ deps:
   service:
     mayDependOn:
       - repository
+  repository:
+    mayDependOn:
+      - provider
+  provider:
+    mayDependOn:
+      - client
+  observer:
+    mayDependOn:
+      - service
