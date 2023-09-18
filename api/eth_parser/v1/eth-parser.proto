@@ -123,7 +123,7 @@ service ETHParserServiceV1 {
 message GetCurrentBlockRequest {}
 
 message GetCurrentBlockResponse {
-  int32 block = 1;
+  int64 block = 1;
 }
 
 message SubscribeRequest {
@@ -143,5 +143,13 @@ message GetTransactionsResponse {
 }
 
 message Transaction {
-  int32 id = 1;
+  string address = 1;
+  repeated string topics = 2;
+  string data = 3;
+  string blockNumber = 4;
+  string transactionHash = 5;
+  string transactionIndex = 6;
+  string blockHash = 7;
+  string logIndex = 8;
+  bool removed = 9;
 }

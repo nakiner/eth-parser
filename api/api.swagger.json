@@ -227,8 +227,8 @@
       "type": "object",
       "properties": {
         "block": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -271,9 +271,35 @@
     "v1Transaction": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int32"
+        "address": {
+          "type": "string"
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "data": {
+          "type": "string"
+        },
+        "blockNumber": {
+          "type": "string"
+        },
+        "transactionHash": {
+          "type": "string"
+        },
+        "transactionIndex": {
+          "type": "string"
+        },
+        "blockHash": {
+          "type": "string"
+        },
+        "logIndex": {
+          "type": "string"
+        },
+        "removed": {
+          "type": "boolean"
         }
       }
     }
